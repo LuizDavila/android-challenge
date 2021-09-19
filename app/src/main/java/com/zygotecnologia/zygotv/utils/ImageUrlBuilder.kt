@@ -1,6 +1,7 @@
 package com.zygotecnologia.zygotv.utils
 
-import com.zygotecnologia.zygotv.network.TmdbApi
+import com.zygotecnologia.zygotv.data.remote.TmdbApi
+
 
 object ImageUrlBuilder {
 

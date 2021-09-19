@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/black">
+
+    <ImageView
+        android:id="@+id/seasonImage"
+        android:layout_width="@dimen/_68sdp"
+        android:layout_height="@dimen/_63sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/seasonTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Temporada 1"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16ssp"
+        android:layout_marginStart="@dimen/_17sdp"
+        android:fontFamily="@font/roboto_regular"
+        app:layout_constraintStart_toEndOf="@id/seasonImage"
+        app:layout_constraintTop_toTopOf="@id/seasonImage"/>
+
+    <TextView
+        android:id="@+id/seasonDescriptionTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_14ssp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/roboto_regular"
+        android:layout_marginEnd="@dimen/_18sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        tools:text="Pequena sinópse da temporada aqui."
+        app:layout_constraintEnd_toStartOf="@id/expandArrow"
+        app:layout_constraintStart_toStartOf="@id/seasonTv"
+        app:layout_constraintTop_toBottomOf="@id/seasonTv"/>
+
+    <ImageView
+        android:id="@+id/expandArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_down"
+        app:layout_constraintTop_toTopOf="@id/seasonImage"
+        app:layout_constraintBottom_toBottomOf="@id/seasonDescriptionTv"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerEpisodes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginStart="@dimen/_24sdp"
+        android:layout_marginEnd="@dimen/_24sdp"
+        app:layout_constraintTop_toBottomOf="@id/seasonImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
