@@ -8,18 +8,16 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.zygotecnologia.zygotv.R
-import com.zygotecnologia.zygotv.databinding.FragmentMainBinding
-import com.zygotecnologia.zygotv.utils.ImageUrlBuilder
+import com.zygotecnologia.zygotv.databinding.FragmentHomeBinding
+import com.zygotecnologia.zygotv.ui.main.MainFragmentDirections
+import com.zygotecnologia.zygotv.utils.loadImage
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class HomePlaceholderFragment : Fragment(), ClickListener {
 
     private val viewModel: MovieOrSeriesViewModel by viewModel()
-    private var _binding: FragmentMainBinding? = null
+    private var _binding: FragmentHomeBinding? = null
 
     private val binding get() = _binding!!
 
@@ -32,7 +30,7 @@ class HomePlaceholderFragment : Fragment(), ClickListener {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root = binding.root
         return root
     }
@@ -46,18 +44,19 @@ class HomePlaceholderFragment : Fragment(), ClickListener {
     private fun observers() {
         viewModel.moviesOrSeries.observe(viewLifecycleOwner, Observer {
 
-            binding.seriesName.text = it.topShowUIModel?.name
-            Glide.with(requireContext())
-                .load(it.topShowUIModel?.posterPath?.let { img -> ImageUrlBuilder.buildPosterUrl(img) })
-                .apply(RequestOptions().placeholder(R.drawable.image_placeholder))
-                .into(binding.bannerImage)
 
+            binding.seriesName.text = it.topShowUIModel?.name
+
+            requireContext().loadImage(
+                it.topShowUIModel?.posterPath,
+                binding.bannerImage,
+                it.topShowUIModel?.name
+            )
             binding.recyclerContainer.adapter = adapter
 
             it.seriesListByGenderUIModel?.let { series ->
                 adapter.genreList = series
             }
-
         })
 
     }
@@ -81,8 +80,8 @@ class HomePlaceholderFragment : Fragment(), ClickListener {
 
     override fun onClickDetail(id: Int) {
         findNavController().navigate(
-            HomePlaceholderFragmentDirections
-                .actionHomePlaceholderFragmentToDetailFragment()
+            MainFragmentDirections
+                .actionHomePlaceholderFragmentToDetailFragment(id)
         )
     }
 }

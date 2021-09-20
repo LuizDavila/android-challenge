@@ -20,19 +20,19 @@ class TmdbDataSource(private val api: TmdbApi): TmdbSource {
 
 
     override suspend fun fetchPopularShowsAsync(apiKey: String, region: String): Flow<PopularShowResponse> {
-        popularShowChannel.offer(api.fetchPopularShowsAsync(apiKey,region))
+        popularShowChannel.offer(api.fetchPopularShowsAsync())
         return popularShowChannel.asFlow()
     }
 
     override suspend fun fetchMoviesOrSeriesAsyncUseCase(apiKey: String, region: String): Flow<List<ShowResponse>> {
-        val genres = api.fetchGenresAsync(apiKey,region)
-        val shows = api.fetchPopularShowsAsync(apiKey, region)
+        val genres = api.fetchGenresAsync()
+        val shows = api.fetchPopularShowsAsync()
         moviesOrSeriesChannel.offer(mapperMoviesOrSeries(genres, shows))
         return moviesOrSeriesChannel.asFlow()
     }
 
     override suspend fun fetchShowAsync(apiKey: String,  id: Int): Flow<ShowResponse> {
-        showChannel.offer(api.fetchShowAsync(apiKey, id))
+        showChannel.offer(api.fetchShowAsync(id))
         return showChannel.asFlow()
     }
 

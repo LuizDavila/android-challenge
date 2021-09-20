@@ -1,26 +1,26 @@
-package com.zygotecnologia.zygotv.ui.main.favourites
+package com.zygotecnologia.zygotv.ui.main.favorites
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.zygotecnologia.zygotv.databinding.BlankFragmentBinding
+import com.zygotecnologia.zygotv.databinding.FavoritesFragmentBinding
 import com.zygotecnologia.zygotv.ui.main.moviesAndSeries.HomePlaceholderFragment
 
-class BlankFragment : Fragment() {
+class FavoritesFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: BlankViewModel
-    private var _binding: BlankFragmentBinding? = null
+    private lateinit var viewViewModel: FavoritesViewModel
+    private var _binding: FavoritesFragmentBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = BlankFragmentBinding.inflate(inflater, container, false)
+        _binding = FavoritesFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 

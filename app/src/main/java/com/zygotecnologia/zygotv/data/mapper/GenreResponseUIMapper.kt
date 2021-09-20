@@ -10,7 +10,7 @@ object GenreResponseUIMapper {
             map(it)
         } ?: listOf()
 
-    fun map(genders: List<GenreResponse>) = genders.map {
+    fun map(genres: List<GenreResponse>) = genres.map {
         map(it)
     }
 

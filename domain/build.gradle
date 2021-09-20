@@ -1,14 +1,15 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 30
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -35,6 +36,7 @@ dependencies {
 
     implementation "io.insert-koin:koin-android:3.1.2"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
 

@@ -1,14 +1,16 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 30
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -16,12 +18,26 @@ android {
         consumerProguardFiles "consumer-rules.pro"
     }
 
+    androidExtensions {
+        experimental = true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            resValue "string", "TMDB_BASE_URL", '"https://api.themoviedb.org"'
+            resValue "string", "TMDB_API_KEY", '"27490b1bf49c0e5ffaa07dfd947e9605"'
+            resValue "string", "TMDB_REGION", '"BR"'
+        }
+        debug {
+            debuggable true
+            resValue "string", "TMDB_BASE_URL", '"https://api.themoviedb.org"'
+            resValue "string", "TMDB_API_KEY", '"27490b1bf49c0e5ffaa07dfd947e9605"'
+            resValue "string", "TMDB_REGION", '"BR"'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -41,14 +57,20 @@ dependencies {
 
     implementation "io.insert-koin:koin-android:3.1.2"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
+    implementation 'androidx.room:room-runtime:2.3.0'
+    implementation 'androidx.room:room-ktx:2.3.0'
+    kapt "androidx.room:room-compiler:2.3.0"
 
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
     testImplementation 'junit:junit:4.13.2'
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
 }

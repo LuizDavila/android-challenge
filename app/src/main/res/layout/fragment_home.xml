@@ -5,7 +5,8 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="@color/black"
+    tools:context=".ui.main.moviesAndSeries.HomePlaceholderFragment">
 
     <TextView
         android:id="@+id/seriesName"
@@ -35,7 +36,7 @@
         app:layout_constraintTop_toBottomOf="@id/seriesName" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerDetailSeries"
+        android:id="@+id/recyclerContainer"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

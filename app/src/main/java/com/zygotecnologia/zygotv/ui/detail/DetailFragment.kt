@@ -5,28 +5,54 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.zygotecnologia.zygotv.R
+import androidx.lifecycle.Observer
+import com.zygotecnologia.zygotv.databinding.DetailFragmentBinding
+import com.zygotecnologia.zygotv.utils.loadImage
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = DetailFragment()
-    }
+    private var _binding: DetailFragmentBinding? = null
+    private val viewModel: DetailViewModel by viewModel()
 
-    private lateinit var viewModel: DetailViewModel
+    private val detailId by lazy { requireArguments().getInt("id") }
+
+    private val adapter = DetailSeriesAdapter()
+
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.detail_fragment, container, false)
+
+        _binding = DetailFragmentBinding.inflate(inflater, container, false)
+        val root = binding.root
+        return root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.fetchShowAsync("27490b1bf49c0e5ffaa07dfd947e9605", detailId)
+        observer()
+    }
+
+    private fun observer() {
+        viewModel.detailSeries.observe(viewLifecycleOwner, Observer {
+
+            binding.seriesName.text = it.name
+            requireContext().loadImage(
+                it.posterPath, binding.bannerImage, it.name
+            )
+            binding.recyclerDetailSeries.adapter = adapter
+
+
+        })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
