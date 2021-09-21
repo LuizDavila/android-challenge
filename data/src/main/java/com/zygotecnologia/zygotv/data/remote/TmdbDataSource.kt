@@ -15,19 +15,26 @@ class TmdbDataSource(private val api: TmdbApi): TmdbSource {
 
     private val popularShowChannel = ConflatedBroadcastChannel<PopularShowResponse>()
     private val genreChannel = ConflatedBroadcastChannel<GenreListResponse>()
-    private val  moviesOrSeriesChannel = ConflatedBroadcastChannel<List<ShowResponse>>()
+    private val  moviesOrSeriesChannel = ConflatedBroadcastChannel<Pair<GenreListResponse,List<ShowResponse>>>()
     private val  showChannel = ConflatedBroadcastChannel<ShowResponse>()
 
 
     override suspend fun fetchPopularShowsAsync(apiKey: String, region: String): Flow<PopularShowResponse> {
-        popularShowChannel.offer(api.fetchPopularShowsAsync())
+        popularShowChannel.offer(api.fetchPopularSeriesAsync())
         return popularShowChannel.asFlow()
     }
 
-    override suspend fun fetchMoviesOrSeriesAsyncUseCase(apiKey: String, region: String): Flow<List<ShowResponse>> {
-        val genres = api.fetchGenresAsync()
-        val shows = api.fetchPopularShowsAsync()
-        moviesOrSeriesChannel.offer(mapperMoviesOrSeries(genres, shows))
+    override suspend fun fetchMoviesOrSeriesAsyncUseCase(isMovie: Boolean): Flow<Pair<GenreListResponse,List<ShowResponse>>> {
+        if (isMovie) {
+            val genres = api.fetchGenresMoviesAsync()
+            val popular = api.fetchPopularMoviesAsync()
+            moviesOrSeriesChannel.offer(Pair(genres,mapperMoviesOrSeries(genres, popular)))
+        } else {
+            val genres = api.fetchGenresSeriesAsync()
+            val popular = api.fetchPopularSeriesAsync()
+            moviesOrSeriesChannel.offer(Pair(genres,mapperMoviesOrSeries(genres, popular)))
+        }
+
         return moviesOrSeriesChannel.asFlow()
     }
 

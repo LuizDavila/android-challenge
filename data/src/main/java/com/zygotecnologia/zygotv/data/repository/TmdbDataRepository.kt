@@ -10,8 +10,8 @@ class TmdbDataRepository(private val source: TmdbSource): TmdbRepository {
     override suspend fun fetchPopularShowsAsync(apiKey: String, region: String) =
         source.fetchPopularShowsAsync(apiKey, region)
 
-    override suspend fun fetchMoviesOrSeriesAsyncUseCase(apiKey: String, region: String) =
-        source.fetchMoviesOrSeriesAsyncUseCase(apiKey, region)
+    override suspend fun fetchMoviesOrSeriesAsyncUseCase(isMovie: Boolean) =
+        source.fetchMoviesOrSeriesAsyncUseCase(isMovie)
 
     override suspend fun fetchShowAsync(apiKey: String,  id: Int): Flow<ShowResponse> =
         source.fetchShowAsync(apiKey, id)

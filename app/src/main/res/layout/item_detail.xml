@@ -10,7 +10,10 @@
         android:id="@+id/seasonImage"
         android:layout_width="@dimen/_68sdp"
         android:layout_height="@dimen/_63sdp"
+        android:scaleType="fitXY"
+        android:layout_marginBottom="@dimen/_27sdp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView

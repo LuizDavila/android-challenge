@@ -15,8 +15,8 @@ class SectionsPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) 
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> HomePlaceholderFragment.newInstance(isMovie = false)
-            1 -> HomePlaceholderFragment.newInstance(isMovie = true)
+            0 -> HomePlaceholderFragment.newInstance(isMovie = true)
+            1 -> HomePlaceholderFragment.newInstance(isMovie = false)
             else -> {
                 return FavoritesFragment()
             }

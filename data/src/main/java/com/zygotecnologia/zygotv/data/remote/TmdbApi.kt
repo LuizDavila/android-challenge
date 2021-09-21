@@ -10,10 +10,17 @@ import retrofit2.http.Path
 interface TmdbApi {
 
     @GET("$TMDB_API_VERSION/genre/tv/list")
-    suspend fun fetchGenresAsync(): GenreListResponse
+    suspend fun fetchGenresSeriesAsync(): GenreListResponse
 
     @GET("$TMDB_API_VERSION/tv/popular")
-    suspend fun fetchPopularShowsAsync(): PopularShowResponse
+    suspend fun fetchPopularSeriesAsync(): PopularShowResponse
+
+    @GET("$TMDB_API_VERSION/genre/movie/list")
+    suspend fun fetchGenresMoviesAsync(): GenreListResponse
+
+    @GET("$TMDB_API_VERSION/movie/popular")
+    suspend fun fetchPopularMoviesAsync(): PopularShowResponse
+
 
     @GET("$TMDB_API_VERSION/tv/{tv_id}")
     suspend fun fetchShowAsync(

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -37,12 +38,12 @@ class HomePlaceholderFragment : Fragment(), ClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchMoviesOrSeriesAsync("27490b1bf49c0e5ffaa07dfd947e9605", "BR")
+        viewModel.fetchMoviesOrSeriesAsync(isMovie)
         observers()
     }
 
     private fun observers() {
-        viewModel.moviesOrSeries.observe(viewLifecycleOwner, Observer {
+        viewModel.moviesOrSeries.observe(viewLifecycleOwner, Observer { it ->
 
 
             binding.seriesName.text = it.topShowUIModel?.name
@@ -51,12 +52,21 @@ class HomePlaceholderFragment : Fragment(), ClickListener {
                 it.topShowUIModel?.posterPath,
                 binding.bannerImage,
                 it.topShowUIModel?.name
+
             )
+            binding.bannerImage.setOnClickListener { it2 ->
+                it.topShowUIModel?.id?.let { it1 -> onClickDetail(it1) }
+            }
+
             binding.recyclerContainer.adapter = adapter
 
             it.seriesListByGenderUIModel?.let { series ->
                 adapter.genreList = series
             }
+        })
+
+        viewModel.loading.observe(viewLifecycleOwner, Observer {
+            toggleShimmer(it)
         })
 
     }
@@ -66,6 +76,19 @@ class HomePlaceholderFragment : Fragment(), ClickListener {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun toggleShimmer(isVisible: Boolean) {
+        if (isVisible) {
+            binding.shimmerLayoutBanner.startShimmer()
+            binding.shimmerLayoutSeries.startShimmer()
+        } else {
+            binding.shimmerLayoutBanner.stopShimmer()
+            binding.shimmerLayoutSeries.stopShimmer()
+        }
+        binding.shimmerLayoutBanner.isVisible = isVisible
+        binding.shimmerLayoutSeries.isVisible = isVisible
+    }
+
 
     companion object {
 

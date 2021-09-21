@@ -29,9 +29,9 @@ class DetailSeriesAdapter : RecyclerView.Adapter<DetailSeriesAdapter.ItemViewHol
     inner class ItemViewHolder(private val binding: ItemDetailBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: SeasonUIModel) = item.run {
-            binding.seasonTv.text = seasonNumber.toString()
+            binding.seasonTv.text = name
             binding.seasonDescriptionTv.text = overview
-            binding.root.context.loadImage(posterPath, binding.seasonImage, seasonNumber.toString())
+            binding.root.context.loadImage(posterPath, binding.seasonImage, name)
 
 
         }

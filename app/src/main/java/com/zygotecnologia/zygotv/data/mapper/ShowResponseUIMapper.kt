@@ -17,7 +17,7 @@ object ShowResponseUIMapper {
     }
 
     fun mapSeason(seasonResponse: SeasonResponse) = seasonResponse.run {
-        SeasonUIModel(seasonNumber?: 0, posterPath?:"", overview?: "")
+        SeasonUIModel(seasonNumber?: 0, name,posterPath?:"", overview?: "")
     }
 
 }

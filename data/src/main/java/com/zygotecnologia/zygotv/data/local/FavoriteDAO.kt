@@ -4,13 +4,13 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import kotlinx.coroutines.flow.Flow
+import com.zygotecnologia.zygotv.domain.entity.local.FavoriteDTO
 
 @Dao
 interface FavoriteDAO {
 
     @Query("SELECT * FROM favorite")
-    fun getAll(): Flow<List<FavoriteDTO>>
+    fun getAll(): List<FavoriteDTO>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(favorite: FavoriteDTO)

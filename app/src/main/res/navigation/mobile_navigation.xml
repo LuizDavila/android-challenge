@@ -27,5 +27,18 @@
         android:id="@+id/detailFragment"
         android:name="com.zygotecnologia.zygotv.ui.detail.DetailFragment"
         android:label="DetailFragment"
-        tools:layout="@layout/detail_fragment"/>
+        tools:layout="@layout/detail_fragment">
+        <action
+            android:id="@+id/action_detailFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment">
+        <argument
+            android:name="id"
+            app:argType="integer"/>
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.zygotecnologia.zygotv.ui.main.favorites.FavoritesFragment"
+        android:label="favorites_fragment"
+        tools:layout="@layout/favorites_fragment" />
 </navigation>

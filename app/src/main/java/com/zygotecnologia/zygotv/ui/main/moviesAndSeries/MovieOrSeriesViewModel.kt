@@ -31,17 +31,15 @@ class MovieOrSeriesViewModel(
         _loading.postValue(false)
     }
 
-    fun fetchMoviesOrSeriesAsync(apiKey: String, region: String) {
+    fun fetchMoviesOrSeriesAsync(isMovie: Boolean) {
         viewModelScope.launch(errorHandler) {
-            useCase(apiKey, region)
-                .map { ShowUIMapper.map(it) }
+            useCase(isMovie)
+                .map { ShowUIMapper.map(it.first, it.second) }
                 .onStart { _loading.postValue(true) }
                 .collect {
                     _moviesOrSeries.postValue(it)
                     _loading.postValue(false)
                 }
         }
-
-
     }
 }

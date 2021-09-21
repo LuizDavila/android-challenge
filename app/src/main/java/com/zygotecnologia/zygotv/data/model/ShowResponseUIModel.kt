@@ -17,6 +17,7 @@ data class ShowResponseUIModel(
 
 data class SeasonUIModel(
     val seasonNumber: Int?,
+    val name: String?,
     val posterPath: String?,
     val overview: String?
 )

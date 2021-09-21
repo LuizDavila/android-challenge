@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import com.zygotecnologia.zygotv.data.remote.TmdbApi.Companion.TMDB_API_KEY
 import com.zygotecnologia.zygotv.databinding.DetailFragmentBinding
+import com.zygotecnologia.zygotv.domain.entity.local.FavoriteDTO
 import com.zygotecnologia.zygotv.utils.loadImage
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -19,6 +21,8 @@ class DetailFragment : Fragment() {
 
     private val adapter = DetailSeriesAdapter()
 
+    private lateinit var favoriteDTO: FavoriteDTO
+
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -27,18 +31,17 @@ class DetailFragment : Fragment() {
     ): View? {
 
         _binding = DetailFragmentBinding.inflate(inflater, container, false)
-        val root = binding.root
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchShowAsync("27490b1bf49c0e5ffaa07dfd947e9605", detailId)
+        viewModel.fetchShowAsync(TMDB_API_KEY, detailId)
         observer()
     }
 
     private fun observer() {
-        viewModel.detailSeries.observe(viewLifecycleOwner, Observer {
+        viewModel.detailSeries.observe(viewLifecycleOwner, {
 
             binding.seriesName.text = it.name
             requireContext().loadImage(
@@ -46,8 +49,31 @@ class DetailFragment : Fragment() {
             )
             binding.recyclerDetailSeries.adapter = adapter
 
+            adapter.detailList = it.season
+            favoriteDTO = FavoriteDTO(it.id ?: 0, it.name, it.posterPath)
 
         })
+
+            binding.addFavorite.setOnClickListener {
+                viewModel.insert(favoriteDTO)
+            }
+
+
+        viewModel.loading.observe(viewLifecycleOwner, {
+            toggleShimmer(it)
+        })
+    }
+
+    private fun toggleShimmer(isVisible: Boolean) {
+        if (isVisible) {
+            binding.shimmerLayoutBanner.startShimmer()
+            binding.shimmerLayoutSeason.startShimmer()
+        } else {
+            binding.shimmerLayoutBanner.stopShimmer()
+            binding.shimmerLayoutSeason.stopShimmer()
+        }
+        binding.shimmerLayoutBanner.isVisible = isVisible
+        binding.shimmerLayoutSeason.isVisible = isVisible
     }
 
     override fun onDestroyView() {

@@ -19,12 +19,15 @@ data class ShowResponse(
     val backdropPath: String?,
     @SerializedName("original_language")
     val originalLanguage: String?,
+    @SerializedName("seasons")
     val season: List<SeasonResponse>?
 )
 
 data class SeasonResponse(
     @SerializedName("season_number")
     val seasonNumber: Int?,
+    @SerializedName("name")
+    val name: String?,
     @SerializedName("poster_path")
     val posterPath: String?,
     val overview: String?

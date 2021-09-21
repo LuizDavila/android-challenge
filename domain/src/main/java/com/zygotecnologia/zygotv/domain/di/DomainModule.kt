@@ -1,8 +1,6 @@
 package com.zygotecnologia.zygotv.domain.di
 
-import com.zygotecnologia.zygotv.domain.usecase.FetchMoviesOrSeriesAsyncUseCase
-import com.zygotecnologia.zygotv.domain.usecase.fetchPopularShowsAsyncUseCase
-import com.zygotecnologia.zygotv.domain.usecase.FetchShowAsyncUseCase
+import com.zygotecnologia.zygotv.domain.usecase.*
 import org.koin.dsl.module
 
 val useCaseModule = module {
@@ -21,6 +19,18 @@ val useCaseModule = module {
 
     factory {
         FetchShowAsyncUseCase(
+            repository = get()
+        )
+    }
+
+    factory {
+        InsertFavoriteUseCase(
+            repository = get()
+        )
+    }
+
+    factory {
+        GetAllFavoriteUseCase(
             repository = get()
         )
     }

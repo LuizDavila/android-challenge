@@ -4,12 +4,16 @@ import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.zygotecnologia.zygotv.data.R
+import com.zygotecnologia.zygotv.data.local.FavoriteDataSource
+import com.zygotecnologia.zygotv.data.local.FavoriteSource
 import com.zygotecnologia.zygotv.data.local.FavoritesDatabase
 import com.zygotecnologia.zygotv.data.remote.TmdbApi
 import com.zygotecnologia.zygotv.data.remote.TmdbDataSource
 import com.zygotecnologia.zygotv.data.remote.TmdbSource
+import com.zygotecnologia.zygotv.data.repository.FavoriteDataRepository
 import com.zygotecnologia.zygotv.data.repository.TmdbDataRepository
 import com.zygotecnologia.zygotv.data.util.AddKeyRequestInterceptor
+import com.zygotecnologia.zygotv.domain.repository.FavoriteRepository
 import com.zygotecnologia.zygotv.domain.repository.TmdbRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -29,12 +33,21 @@ val dataModule = module {
     factory<TmdbSource> {
         TmdbDataSource(api = get())
     }
+
+    factory<FavoriteSource> {
+       FavoriteDataSource(dao = get())
+    }
+
 }
 
 val repositoryModule = module{
 
     factory<TmdbRepository> {
         TmdbDataRepository(source = get())
+    }
+
+    factory<FavoriteRepository> {
+        FavoriteDataRepository(source = get())
     }
 }
 
