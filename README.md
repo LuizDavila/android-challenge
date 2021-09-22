@@ -13,6 +13,8 @@
 - [Licença](#licença)
 
 ## Introdução
+Aplicativo compatível com versão Android 21+ e com acessibilidade.
+
 O objetivo deste projeto é completar o challenge da Zygo utilizando os princípios da Clean Architecture e SOLID,
 trazendo-os para o Android. Vale a pena dizer que a ideia é aproveitar as vantagens das linguagens de programação Kotlin,
 além de extrair lições aprendidas e ideias de outras abordagens interessantes, e de outros projetos que passei, como também a programação funcional,
@@ -79,9 +81,10 @@ nas Entidades para apresentar na camada de app.
 [4]:  https://github.com/google/dagger
 [5]:  https://github.com/square/retrofit
 [6]:  https://github.com/JakeWharton/timber
-[7]:
-
-
+[7]:  https://docs.glideapps.com/all/
+[8]:  https://github.com/intuit/sdp/blob/master/README.md
+[9]:  https://github.com/intuit/ssp/blob/master/README.md
+[10]: https://airbnb.io/lottie/#/
 
 ## Licença
 
