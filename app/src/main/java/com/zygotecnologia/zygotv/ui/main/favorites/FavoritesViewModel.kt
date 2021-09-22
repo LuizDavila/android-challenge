@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.zygotecnologia.zygotv.data.mapper.FavoritesUIMapper
 import com.zygotecnologia.zygotv.data.model.FavoritesUIModel
 import com.zygotecnologia.zygotv.domain.usecase.GetAllFavoriteUseCase
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
@@ -26,13 +25,6 @@ class FavoritesViewModel(
     private val _loading = MediatorLiveData<Boolean>()
     val loading: LiveData<Boolean>
         get() = _loading
-
-    val errorHandler = CoroutineExceptionHandler { _, exception ->
-//        Timber.e(exception)
-//        crashlytics.recordException(exception)
-        _loading.postValue(false)
-    }
-
 
     fun getAll() {
         viewModelScope.launch(Dispatchers.IO) {

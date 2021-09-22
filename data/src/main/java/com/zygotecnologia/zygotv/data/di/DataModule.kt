@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit
 val dataModule = module {
 
     factory<TmdbSource> {
-        TmdbDataSource(api = get())
+        TmdbDataSource(api = get(), get())
     }
 
     factory<FavoriteSource> {

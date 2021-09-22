@@ -7,38 +7,32 @@
     <fragment
         android:id="@+id/main_dest"
         android:name="com.zygotecnologia.zygotv.ui.main.MainFragment"
-        tools:layout="@layout/fragment_home">
+        tools:layout="@layout/fragment_movies_or_series">
         <action
-            android:id="@+id/action_homePlaceholderFragment_to_detailFragment"
+            android:id="@+id/action_moviesOrSeriesFragment_to_detailFragment"
             app:destination="@id/detailFragment">
             <argument
                 android:name="id"
-                app:argType="integer"/>
+                app:argType="integer" />
+            <argument
+                android:name="movie"
+                app:argType="boolean" />
         </action>
     </fragment>
 
     <fragment
-        android:id="@+id/homePlaceholderFragment"
-        android:name="com.zygotecnologia.zygotv.ui.main.moviesAndSeries.HomePlaceholderFragment"
+        android:id="@+id/moviesOrSeriesFragment"
+        android:name="com.zygotecnologia.zygotv.ui.main.moviesAndSeries.MoviesOrSeriesFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_home">
-    </fragment>
+        tools:layout="@layout/fragment_movies_or_series"/>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.zygotecnologia.zygotv.ui.detail.DetailFragment"
         android:label="DetailFragment"
-        tools:layout="@layout/detail_fragment">
-        <action
-            android:id="@+id/action_detailFragment_to_favoritesFragment"
-            app:destination="@id/favoritesFragment">
-        <argument
-            android:name="id"
-            app:argType="integer"/>
-        </action>
-    </fragment>
+        tools:layout="@layout/detail_fragment"/>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.zygotecnologia.zygotv.ui.main.favorites.FavoritesFragment"
         android:label="favorites_fragment"
-        tools:layout="@layout/favorites_fragment" />
+        tools:layout="@layout/fragment_favorites" />
 </navigation>

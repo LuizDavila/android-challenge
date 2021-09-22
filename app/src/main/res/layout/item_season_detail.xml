@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black">
+
+    <ImageView
+        android:id="@+id/seasonImage"
+        android:layout_width="@dimen/_68sdp"
+        android:layout_height="@dimen/_63sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/seasonTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_17sdp"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16ssp"
+        app:layout_constraintStart_toEndOf="@id/seasonImage"
+        app:layout_constraintTop_toTopOf="@id/seasonImage"
+        tools:text="Temporada 1" />
+
+    <TextView
+        android:id="@+id/seasonDescriptionTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_18sdp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintBottom_toBottomOf="@id/seasonImage"
+        app:layout_constraintEnd_toStartOf="@id/expandArrow"
+        app:layout_constraintStart_toStartOf="@id/seasonTv"
+        app:layout_constraintTop_toBottomOf="@id/seasonTv"
+        tools:text="Pequena sinópse da temporada aqui." />
+
+    <ImageView
+        android:id="@+id/expandArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_down"
+        android:contentDescription="@string/down"
+        app:layout_constraintBottom_toBottomOf="@id/seasonDescriptionTv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/seasonImage" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,7 @@ import com.zygotecnologia.zygotv.data.di.remoteModule
 import com.zygotecnologia.zygotv.data.di.repositoryModule
 import com.zygotecnologia.zygotv.di.appModule
 import com.zygotecnologia.zygotv.domain.di.useCaseModule
+import com.zygotecnologia.zygotv.monitor.ConnectivityProvider
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.koin.android.ext.koin.androidContext
@@ -20,6 +21,7 @@ class BaseApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        ConnectivityProvider.createProvider(this).subscribe()
         initKoin()
     }
 

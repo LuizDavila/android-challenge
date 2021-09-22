@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.zygotecnologia.zygotv.databinding.ActivitySplashBinding
 import com.zygotecnologia.zygotv.ui.main.MainActivity
+import com.zygotecnologia.zygotv.utils.spannableTitle
 
 class SplashActivity : AppCompatActivity() {
 
@@ -13,10 +14,10 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
         onConfigLoaded()
+        binding.title.text = spannableTitle()
     }
 
     private fun onConfigLoaded() {

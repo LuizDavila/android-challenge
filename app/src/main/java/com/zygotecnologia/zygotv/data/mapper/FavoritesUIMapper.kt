@@ -5,15 +5,11 @@ import com.zygotecnologia.zygotv.domain.entity.local.FavoriteDTO
 
 object FavoritesUIMapper {
 
-
-
-
-
     fun map(favoritesList: List<FavoriteDTO>) = favoritesList.map {
        map(it)
     }
 
-    fun map(favoriteDTO: FavoriteDTO) = favoriteDTO.run {
+    private fun map(favoriteDTO: FavoriteDTO) = favoriteDTO.run {
         FavoritesUIModel(id, name,posterPath)
     }
 }

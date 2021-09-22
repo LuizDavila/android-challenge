@@ -4,10 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zygotecnologia.zygotv.data.mapper.ShowResponseUIMapper
-import com.zygotecnologia.zygotv.data.model.ShowResponseUIModel
+import com.github.ajalt.timberkt.Timber
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.zygotecnologia.zygotv.data.mapper.MoviesOrSeriesDetailUIMapper
+import com.zygotecnologia.zygotv.data.model.MoviesOrSeriesDetailUIModel
 import com.zygotecnologia.zygotv.domain.entity.local.FavoriteDTO
-import com.zygotecnologia.zygotv.domain.usecase.FetchShowAsyncUseCase
+import com.zygotecnologia.zygotv.domain.usecase.FetchMoviesOrSeriesDetailAsyncUseCase
 import com.zygotecnologia.zygotv.domain.usecase.InsertFavoriteUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.collect
@@ -16,12 +18,13 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class DetailViewModel(
-    private val useCase: FetchShowAsyncUseCase,
-    private val insertFavoriteUseCase: InsertFavoriteUseCase
+    private val useCase: FetchMoviesOrSeriesDetailAsyncUseCase,
+    private val insertFavoriteUseCase: InsertFavoriteUseCase,
+    private val crashlytics: FirebaseCrashlytics
 ) : ViewModel() {
 
-    private val _detailSeries = MediatorLiveData<ShowResponseUIModel>()
-    val detailSeries: LiveData<ShowResponseUIModel>
+    private val _detailSeries = MediatorLiveData<MoviesOrSeriesDetailUIModel>()
+    val detailSeries: LiveData<MoviesOrSeriesDetailUIModel>
         get() = _detailSeries
 
     private val _insert = MediatorLiveData<Unit>()
@@ -32,16 +35,16 @@ class DetailViewModel(
     val loading: LiveData<Boolean>
         get() = _loading
 
-    val errorHandler = CoroutineExceptionHandler { _, exception ->
-//        Timber.e(exception)
-//        crashlytics.recordException(exception)
+    private val errorHandler = CoroutineExceptionHandler { _, exception ->
+        Timber.e(exception)
+        crashlytics.recordException(exception)
         _loading.postValue(false)
     }
 
-    fun fetchShowAsync(apiKey: String, id: Int) {
+    fun fetchShowAsync(isMovie: Boolean, id: Int) {
         viewModelScope.launch(errorHandler) {
-            useCase(apiKey, id)
-                .map { ShowResponseUIMapper.map(it) }
+            useCase(isMovie, id)
+                .map { MoviesOrSeriesDetailUIMapper.map(it) }
                 .onStart { _loading.postValue(true) }
                 .collect {
                     _detailSeries.postValue(it)

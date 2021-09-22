@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
-import com.zygotecnologia.zygotv.databinding.FavoritesFragmentBinding
-import com.zygotecnologia.zygotv.ui.main.moviesAndSeries.HomePlaceholderFragment
+import com.zygotecnologia.zygotv.databinding.FragmentFavoritesBinding
+import com.zygotecnologia.zygotv.ui.main.moviesAndSeries.MoviesOrSeriesFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoritesFragment : Fragment() {
@@ -18,16 +19,16 @@ class FavoritesFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: FavoritesViewModel by viewModel()
-    private var _binding: FavoritesFragmentBinding? = null
+    private var _binding: FragmentFavoritesBinding? = null
 
     private val adapter = FavoritesAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        _binding = FavoritesFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -47,7 +48,13 @@ class FavoritesFragment : Fragment() {
             binding.favoriteRecycler.adapter = adapter
 
             adapter.favoritesList = it
+
+            favoriteMessage()
         })
+    }
+
+    private fun favoriteMessage(){
+        binding.favoriteMessage.isVisible = adapter.favoritesList.isNullOrEmpty()
     }
 
     override fun onDestroyView() {
@@ -61,8 +68,8 @@ class FavoritesFragment : Fragment() {
         private const val ARG_SECTION_NUMBER = "section_number"
 
         @JvmStatic
-        fun newInstance(sectionNumber: Int): HomePlaceholderFragment {
-            return HomePlaceholderFragment().apply {
+        fun newInstance(sectionNumber: Int): MoviesOrSeriesFragment {
+            return MoviesOrSeriesFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_SECTION_NUMBER, sectionNumber)
                 }

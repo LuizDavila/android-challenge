@@ -22,6 +22,4 @@ class FavoriteDataSource(private val dao: FavoriteDAO): FavoriteSource {
         insertChannel.offer(dao.insert(favorite))
         return insertChannel.asFlow()
     }
-
-
 }

@@ -6,7 +6,7 @@
 
     <View
         android:id="@+id/view"
-        android:layout_marginTop="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_37sdp"
         android:layout_width="@dimen/_75sdp"
         android:layout_height="@dimen/_24sdp"
         android:layout_marginStart="@dimen/_24sdp"

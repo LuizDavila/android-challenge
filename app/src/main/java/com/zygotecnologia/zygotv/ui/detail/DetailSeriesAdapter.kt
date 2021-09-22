@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.zygotecnologia.zygotv.data.model.SeasonUIModel
-import com.zygotecnologia.zygotv.databinding.ItemDetailBinding
+import com.zygotecnologia.zygotv.databinding.ItemSeasonDetailBinding
 import com.zygotecnologia.zygotv.utils.loadImage
 
 class DetailSeriesAdapter : RecyclerView.Adapter<DetailSeriesAdapter.ItemViewHolder>() {
@@ -23,10 +23,10 @@ class DetailSeriesAdapter : RecyclerView.Adapter<DetailSeriesAdapter.ItemViewHol
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ItemViewHolder(
-        ItemDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemSeasonDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
-    inner class ItemViewHolder(private val binding: ItemDetailBinding) :
+    inner class ItemViewHolder(private val binding: ItemSeasonDetailBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: SeasonUIModel) = item.run {
             binding.seasonTv.text = name
